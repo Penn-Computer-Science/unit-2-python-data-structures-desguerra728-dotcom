@@ -1,18 +1,31 @@
-def add_student(gradebook):
+def add_student():
     student = input("Enter student name: ")
-    gradebook[student] = {}
+    gradebook[student] = []
+    print("")
     print("Updated gradebook:")
     print(gradebook)
     return student
 
-def add_grade(student, gradebook):
-    try:
-        grade = input("Enter grade: ")
-        float(grade)
-    except:
-        print("Please enter a number.")
-        print("")
+def add_grade():
+    while True:
+        student = input("Enter student name to update grade: ")
+        if student not in gradebook:
+                print(student + " is not in the gradebook.")
+        # ask to add student to gradebook
+        else:
+             break
+    while True:
+        try:
+            grade = input("Enter grade: ")
+            float(grade)
+            break
+        except:
+            print("Please enter a number.")
+            print("")
     gradebook[student].append(grade)
+    print("")
+    print("Updated gradebook:")
+    print(gradebook)
 
 gradebook = {"Billy":[76, 89, 83],
              "Polly":[89, 90, 78],
@@ -20,13 +33,11 @@ gradebook = {"Billy":[76, 89, 83],
 print(gradebook)
 
 
-add_student(gradebook)
+add_student()
+add_grade()
 
 
 # 2. User Input
-# - Allow the user to:
-#   - Add a new student
-#   - Add grades for an existing student
 #   - View the gradebook summary
 
 # 3. Calculations
