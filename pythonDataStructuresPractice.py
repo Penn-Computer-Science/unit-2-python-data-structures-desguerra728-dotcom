@@ -20,6 +20,8 @@ for num in num_list:
     if num % 2 == 0:
         print(num)
 
+
+
 # ---
 
 # Part 2: Dictionaries
@@ -32,33 +34,64 @@ print(country_dict["England"])
 print(country_dict["France"])
 
 # 3. Add a new country-capital pair.
+country_dict["Philippines"] = "Manila"
+country_dict["Germany"] = "Berlin"
+print(country_dict)
 
 # 4. Change the capital of one country.
+country_dict["England"] = "Birmingham"
+print(country_dict)
+
 # 5. Loop through and print all countries and capitals.
+for country in country_dict:
+    print (country + " " + country_dict[country])
 
-# # ---
 
-# # Part 3: Sets
-# # 1. Create a set of your favorite fruits.
-# # 2. Add a new fruit, then remove one.
-# # 3. Create another set of fruits your friend likes.
-# # 4. Print:
-# #    - Fruits you both like (intersection).
-# #    - Fruits only you like (difference).
-# #    - All fruits either of you like (union).
 
-# # ---
+# ---
 
-# # Part 4: Tuples
-# # 1. Create a tuple of 5 colors.
-# colors = ("red", "yellow", "blue", "green", "orange")
+# Part 3: Sets
+# 1. Create a set of your favorite fruits.
+fruit_set = {"orange", "grapes", "apple", "kiwi"}
+print(fruit_set)
 
-# # 2. Print the first and last color.
-# print(colors[0])
-# print(colors[-1])
+# 2. Add a new fruit, then remove one.
+fruit_set.add("lychee")
+fruit_set.remove("grapes")
+print(fruit_set)
 
-# # 3. Loop through the tuple and print each color.
-# for i in colors:
-#     print (colors[i])
+# 3. Create another set of fruits your friend likes.
+friend_set = {"orange", "banana", "kiwi"}
+print(friend_set)
+
+# 4. Print:
+#    - Fruits you both like (intersection).
+inter_set = fruit_set & friend_set
+print(inter_set)
+
+#    - Fruits only you like (difference).
+diff_set = fruit_set - friend_set
+print(diff_set)
+
+#    - All fruits either of you like (union).
+union_set = fruit_set | friend_set
+print(union_set)
+
+
+
+# ---
+
+# Part 4: Tuples
+# 1. Create a tuple of 5 colors.
+colors = ("red", "yellow", "blue", "green", "orange")
+
+# 2. Print the first and last color.
+print(colors[0])
+print(colors[-1])
+
+# 3. Loop through the tuple and print each color.
+for color in colors:
+    print (color)
 
 # 4. Try to change one color (note the error).
+colors[2] = "purple"
