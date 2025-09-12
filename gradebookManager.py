@@ -1,8 +1,22 @@
+#titles
+#cancel choice (leave choice)
+
+gradebook = {"Billy":[76, 89, 83],
+             "Polly":[67, 85, 75],
+             "Charlie":[75, 90, 83]}
+
+def view_letter():
+    pass
+
+# - Sort students by average grade.
+def sort():
+    pass
+
 def add_student():
     student = input("Enter student name: ")
     gradebook[student] = []
     print("")
-    print("Updated gradebook:")
+    print("Current gradebook:")
     print(gradebook)
     return student
 
@@ -10,8 +24,8 @@ def add_grade():
     while True:
         student = input("Enter student name to update grade: ")
         if student not in gradebook:
-                print(student + " is not in the gradebook.")
-        # ask to add student to gradebook
+            print("The name \""+ student + "\" is not in the gradebook. Check spelling and capitalization.")
+        # ask to add student to gradebook; otherwise, leave add grade
         else:
              break
     while True:
@@ -24,24 +38,8 @@ def add_grade():
             print("")
     gradebook[student].append(grade)
     print("")
-    print("Updated gradebook:")
+    print("Current gradebook:")
     print(gradebook)
-
-gradebook = {"Billy":[76, 89, 83],
-             "Polly":[89, 90, 78],
-             "Charlie":[75, 76, 98]}
-print(gradebook)
-
-
-# 2. User Input
-#   - View the gradebook summary
-
-# 3. Calculations
-# - For each student, calculate the average grade.
-# - Identify and print the student with the highest average.
-
-# 4. Display
-# - Print a clear summary of all students, their grades, and their average.
 
 def calculate_avg(student):
     sum = 0
@@ -51,47 +49,117 @@ def calculate_avg(student):
     average = sum/len(grades)
     return average
 
+# negative grades not allowed
+# if a student does not have any grades, then it is aZeroDivisionError
 def summary():
+    top_student = []
+    top_grade = 0
     for student in gradebook:
         avg = calculate_avg(student)
-        print(student + ": " + gradebook[student] + " Average : " + str(avg))
-    #   - Alice: [90, 85, 92] Average: 89.0
-    #   - Bob: [78, 81, 86] Average: 81.7
-    #   - Top Student: Alice
-    pass
+        print(student + ": " + str(gradebook[student]) + " Average : " + str(avg))
+        if avg > top_grade:
+            top_grade = avg
+            top_student = [student]
+        elif avg == top_grade:
+            top_student.append(student)
+    final_top =  ", ".join(top_student)
+    print("Top Student(s): " + final_top)
 
+    #view letter grades
+
+    # sort
 
 # ---
-# 5. Additional Features (Required)
-# - Allow the user to remove a student or a grade.
 
 def remove_student():
-    pass
+    while True:
+        student = input("Enter name of the student to remove from the gradebook: ")
+        if student not in gradebook:
+            print("The name \""+ student + "\" is not in the gradebook. Check spelling and capitalization.")
+        else:
+            break
+    while True:
+        confirm = input("You want to remove " + student + " from the gradebook. Are you sure? Y/N: ")
+        confirm = confirm.lower()
+        if confirm == "y":
+            del gradebook[student]
+            print("")
+            break
+        elif confirm == "n":
+            break
+        else:
+            print("Enter either Y or N.")
+            print("")
+    print("")
+    print("Current gradebook:")
+    print(gradebook)
+
 
 def remove_grade():
-    pass
+    while True:
+        student = input("Enter name of the student to remove their grade: ")
+        if student not in gradebook:
+            print("The name \""+ student + "\" is not in the gradebook. Check spelling and capitalization.")
+        else:
+            break
 
-# - Display letter grades (A, B, C, etc.) based on averages.
-def view_letter():
-    pass
+    print(student + "'s Grades:")
+    grade_list = gradebook[student]
+    for i in range(len(grade_list)):
+        print(str(i) + ": " + str(grade_list[i]))
+    while True:
+        try:
+            index = input("Which grade do you want to remove? ")
+            index = int(index)
+            if index > (len(grade_list)):
+                print("Please enter an integer from the choices indicated....")
+            else:
+                break
+        except:
+            print("Please enter an integer from the choices indicated..")
+    
+    while True:
+        confirm = input("You want to remove " + str(grade_list[index]) + " from " + student +"'s grades. Are you sure? Y/N: ")
+        confirm = confirm.lower()
+        if confirm == "y":
+            gradebook[student].pop(index)
+            print("")
+            break
+        elif confirm == "n":
+            break
+        else:
+            print("Enter either Y or N.")
+            print("")
 
-# - Sort students by average grade.
-def sort():
-    pass
+    print("Current gradebook:")
+    print(gradebook)
+
 
 # ---
-'''
+
 print("Welcome to the gradebook.")
 while True:
     print("")
-    use = input("1: Add new student\n2: Add grade\n3: View gradebook summary\nX: Close gradebook\nEnter choice: ")
+    choice = input(\
+    "0: Add new student\n" \
+    "1: Add grade\n" \
+    "2: Remove student\n" \
+    "3: Remove grade\n" \
+    "4: View gradebook summary\n" \
+    "X: Close gradebook\n" \
+    "Enter choice: ")
     print("")
-    if use == "1":
+    if choice == "0":
         add_student()
-    if use == "2":
+    if choice == "1":
         add_grade()
-    if use == "3":
-        print("ND")
-    if use == "4":
+    if choice == "2":
+        remove_student()
+    if choice == "3":
+        remove_grade()
+    if choice == "4":
+        summary()
+    if choice == "X":
         break
-'''
+    else:
+        print("Please enter a number or \'X\' from the choices indicated.")
