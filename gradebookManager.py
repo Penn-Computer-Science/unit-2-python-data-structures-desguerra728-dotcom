@@ -2,14 +2,37 @@
 #cancel choice (leave choice)
 
 gradebook = {"Billy":[76, 89, 83],
-             "Polly":[67, 85, 75],
+             "Polly":[95, 0, 69],
              "Charlie":[75, 90, 83]}
 
+letters_list = ["A", "B", "C", "D", "F"]
+minimums_list = [90, 80, 70, 69, 0]
+
+def convert_to_letter(grade):
+    index = 0
+    while True:
+        if grade >= minimums_list[index]:
+            letter_grade = letters_list[index]
+            return letter_grade
+        else:
+            index += 1
+
 def view_letter():
-    pass
+    print("Letter gradebook:")
+    letter_dict = {}
+    for student in gradebook:
+        letter_list = []
+        grade_list = gradebook[student]
+        for grade in grade_list:
+            letter = convert_to_letter(grade)
+            letter_list.append(letter)
+        letter_dict[student] = letter_list
+    
+    print(letter_dict)
 
 # - Sort students by average grade.
 def sort():
+    
     pass
 
 def add_student():
@@ -19,7 +42,7 @@ def add_student():
     print("Current gradebook:")
     print(gradebook)
 
-# replace if "no grade"
+# negative grades not allowed
 def add_grade():
     while True:
         student = input("Enter student name to update grade: ")
@@ -32,9 +55,11 @@ def add_grade():
         try:
             grade = input("Enter grade: ")
             grade = float(grade)
-            break
+            if grade >= 0:
+                break
+            print("Please enter a positive number.")
         except:
-            print("Please enter a number.")
+            print("Please enter a positive number.")
             print("")
     gradebook[student].append(grade)
     print("")
@@ -52,8 +77,6 @@ def calculate_avg(student):
         average = "No Grade"
     return average
 
-# negative grades not allowed
-# if a student does not have any grades, then it is aZeroDivisionError, if not grade, then output "no grades"
 def summary():
     top_student = []
     top_grade = 0
@@ -69,9 +92,26 @@ def summary():
     final_top =  ", ".join(top_student)
     print("Top Student(s): " + final_top)
 
-    #view letter grades
+    while True:
+        print("")
+        choice = input(\
+        "0: View as letter grades\n" \
+        "1: Sort\n" \
+        "X: Close gradebook summary\n" \
+        "Enter choice: ")
+        choice = choice.lower()
+        print("")
+        if choice == "0":
+            view_letter()
+        if choice == "1":
+            sort()
+        if choice == "x":
+            break
+        else:
+            print("")
+            print("Please enter a number or \'X\' from the choices indicated.")    
 
-    # sort
+
 
 # ---
 
