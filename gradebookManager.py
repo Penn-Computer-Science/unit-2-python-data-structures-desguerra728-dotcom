@@ -19,6 +19,7 @@ def add_student():
     print("Current gradebook:")
     print(gradebook)
 
+# replace if "no grade"
 def add_grade():
     while True:
         student = input("Enter student name to update grade: ")
@@ -45,22 +46,26 @@ def calculate_avg(student):
     grades = gradebook[student]
     for grade in grades:
         sum += grade
-    average = sum/len(grades)
+    try:
+        average = sum/len(grades)
+    except:
+        average = "No Grade"
     return average
 
 # negative grades not allowed
-# if a student does not have any grades, then it is aZeroDivisionError
+# if a student does not have any grades, then it is aZeroDivisionError, if not grade, then output "no grades"
 def summary():
     top_student = []
     top_grade = 0
     for student in gradebook:
         avg = calculate_avg(student)
         print(student + ": " + str(gradebook[student]) + " Average : " + str(avg))
-        if avg > top_grade:
-            top_grade = avg
-            top_student = [student]
-        elif avg == top_grade:
-            top_student.append(student)
+        if avg != "No Grade":
+            if avg > top_grade:
+                top_grade = avg
+                top_student = [student]
+            elif avg == top_grade:
+                top_student.append(student)
     final_top =  ", ".join(top_student)
     print("Top Student(s): " + final_top)
 
@@ -147,6 +152,7 @@ while True:
     "4: View gradebook summary\n" \
     "X: Close gradebook\n" \
     "Enter choice: ")
+    choice = choice.lower()
     print("")
     if choice == "0":
         add_student()
@@ -158,7 +164,8 @@ while True:
         remove_grade()
     if choice == "4":
         summary()
-    if choice == "X":
+    if choice == "x":
         break
     else:
+        print("")
         print("Please enter a number or \'X\' from the choices indicated.")
