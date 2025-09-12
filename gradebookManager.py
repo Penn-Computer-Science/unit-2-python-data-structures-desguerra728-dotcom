@@ -18,7 +18,6 @@ def add_student():
     print("")
     print("Current gradebook:")
     print(gradebook)
-    return student
 
 def add_grade():
     while True:
