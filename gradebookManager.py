@@ -32,7 +32,9 @@ def view_letter():
 
 # - Sort students by average grade.
 def sort():
-    
+    for student in gradebook:
+        '''determine averages, if avg > top, put student at top of student list'''
+        pass
     pass
 
 def add_student():
