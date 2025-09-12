@@ -2,7 +2,7 @@
 #cancel choice (leave choice)
 
 gradebook = {"Billy":[76, 89, 83],
-             "Polly":[95, 0, 69],
+             "Polly":[100, 0, 69],
              "Charlie":[75, 90, 83]}
 
 letters_list = ["A", "B", "C", "D", "F"]
@@ -32,10 +32,12 @@ def view_letter():
 
 # - Sort students by average grade.
 def sort():
-    for student in gradebook:
-        '''determine averages, if avg > top, put student at top of student list'''
+    avg_dict = {}
+    for student, grade_list in gradebook:
+        
         pass
-    pass
+    gradebook = temp
+    return gradebook
 
 def add_student():
     student = input("Enter student name: ")
@@ -44,7 +46,6 @@ def add_student():
     print("Current gradebook:")
     print(gradebook)
 
-# negative grades not allowed
 def add_grade():
     while True:
         student = input("Enter student name to update grade: ")
@@ -106,12 +107,13 @@ def summary():
         if choice == "0":
             view_letter()
         if choice == "1":
-            sort()
+            gradebook = sort() # sort shouold return a new gradebook, summary will return it too
         if choice == "x":
             break
         else:
             print("")
             print("Please enter a number or \'X\' from the choices indicated.")    
+    return gradebook
 
 
 
@@ -205,7 +207,7 @@ while True:
     if choice == "3":
         remove_grade()
     if choice == "4":
-        summary()
+        gradebook = summary() # returns gradebook
     if choice == "x":
         break
     else:
