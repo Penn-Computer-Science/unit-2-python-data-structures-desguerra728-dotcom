@@ -26,7 +26,11 @@ for num in num_list:
 
 # Part 2: Dictionaries
 # 1. Create a dictionary of 5 countries and their capitals.
-country_dict = {"England": "London", "France": "Paris", "Spain": "Madrid", "Russia": "Moscow", "Italy": "Rome"}
+country_dict = {"England": "London", 
+                "France": "Paris", 
+                "Spain": "Madrid",
+                "Russia": "Moscow",
+                "Italy": "Rome"}
 print(country_dict)
 
 # 2. Print the capital of 2 countries.
