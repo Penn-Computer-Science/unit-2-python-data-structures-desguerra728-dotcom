@@ -30,14 +30,23 @@ def view_letter():
     
     print(letter_dict)
 
-# - Sort students by average grade.
 def sort():
-    avg_dict = {}
-    for student, grade_list in gradebook:
-        
-        pass
-    gradebook = temp
-    return gradebook
+    new_dict = {}
+    avg_list = []
+    sorted_averages = []
+    for student in gradebook:
+        ave = calculate_avg(student)
+        if ave != "No Grade":
+            avg_list.append(ave)
+    sorted_averages = sorted(avg_list, reverse=True)
+    sorted_averages.append("No Grade")
+    for avg in sorted_averages:
+        for student in gradebook:
+            average = calculate_avg(student)
+            if average == avg:
+                new_dict[student] = gradebook[student]
+    return new_dict
+
 
 def add_student():
     student = input("Enter student name: ")
@@ -51,7 +60,6 @@ def add_grade():
         student = input("Enter student name to update grade: ")
         if student not in gradebook:
             print("The name \""+ student + "\" is not in the gradebook. Check spelling and capitalization.")
-        # ask to add student to gradebook; otherwise, leave add grade
         else:
              break
     while True:
@@ -80,7 +88,7 @@ def calculate_avg(student):
         average = "No Grade"
     return average
 
-def summary():
+def find_top():
     top_student = []
     top_grade = 0
     for student in gradebook:
@@ -95,6 +103,10 @@ def summary():
     final_top =  ", ".join(top_student)
     print("Top Student(s): " + final_top)
 
+def summary():
+    global gradebook
+    find_top()
+
     while True:
         print("")
         choice = input(\
@@ -107,7 +119,9 @@ def summary():
         if choice == "0":
             view_letter()
         if choice == "1":
-            gradebook = sort() # sort shouold return a new gradebook, summary will return it too
+            gradebook = sort()
+            print("Sorted gradebook:")
+            find_top()
         if choice == "x":
             break
         else:
@@ -207,7 +221,7 @@ while True:
     if choice == "3":
         remove_grade()
     if choice == "4":
-        gradebook = summary() # returns gradebook
+        gradebook = summary()
     if choice == "x":
         break
     else:
