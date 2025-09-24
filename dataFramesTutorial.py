@@ -15,4 +15,4 @@ df = pd.DataFrame(
     'gFreq':g_freq
     })
 print(df)
-print(df.describe())
+print(round(df.describe()))
